@@ -1,16 +1,36 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { Minus, Plus, ChevronDown, Trash2 } from "lucide-react";
-import { useState } from "react";
 
 export default function ProductCartItem() {
+  const [sizeOpen, setSizeOpen] = useState(false);
+  const [colorOpen, setColorOpen] = useState(false);
+
+  const sizeRef = useRef<HTMLDivElement>(null);
+  const colorRef = useRef<HTMLDivElement>(null);
+
   const [quantity, setQuantity] = useState(5);
   const [size, setSize] = useState("2XL");
   const [color, setColor] = useState("yellow");
 
   const price = 800;
   const total = quantity * price;
+
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (sizeRef.current && !sizeRef.current.contains(e.target as Node)) {
+        setSizeOpen(false);
+      }
+      if (colorRef.current && !colorRef.current.contains(e.target as Node)) {
+        setColorOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
 
   return (
     <div className="bg-white p-4">
@@ -71,22 +91,38 @@ export default function ProductCartItem() {
         <div className="flex items-center justify-between">
           <span className="text-[#344054]">Size :</span>
 
-          <div className="relative w-24">
-            <select
-              value={size}
-              onChange={(e) => setSize(e.target.value)}
-              className="w-full appearance-none bg-[#F3F4F6] py-1 pl-3 pr-6 text-[#8A99AF] cursor-pointer"
+          <div ref={sizeRef} className="relative w-24">
+            <button
+              onClick={() => setSizeOpen(!sizeOpen)}
+              className="flex w-full items-center justify-between bg-[#F3F4F6] px-3 py-1 text-[#8A99AF] cursor-pointer"
             >
-              <option>XL</option>
-              <option>2XL</option>
-              <option>3XL</option>
-            </select>
+              <span>{size}</span>
+              <ChevronDown
+                size={14}
+                className={`transition-transform ${
+                  sizeOpen ? "rotate-180" : ""
+                }`}
+              />
+            </button>
 
-            {/* Chevron */}
-            <ChevronDown
-              size={14}
-              className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-[#8A99AF] cursor-pointer"
-            />
+            {sizeOpen && (
+              <div className="absolute top-full mt-1 w-full bg-white border border-[#9CA3AF] z-50 ">
+                {["XL", "2XL", "3XL"].map((item) => (
+                  <button
+                    key={item}
+                    onClick={() => {
+                      setSize(item);
+                      setSizeOpen(false);
+                    }}
+                    className={`w-full text-left px-3 py-1 text-sm hover:bg-[#EFF4FB]  ${
+                      size === item ? "bg-[#03C855] text-white" : ""
+                    }`}
+                  >
+                    {item}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 
@@ -94,33 +130,59 @@ export default function ProductCartItem() {
         <div className="flex items-center justify-between">
           <span className="text-[#344054]">Color :</span>
 
-          <div className="relative w-24">
-            <select
-              value={color}
-              onChange={(e) => setColor(e.target.value)}
-              className="w-full appearance-none bg-[#F3F4F6] py-1 pl-8 pr-6 text-[#8A99AF]"
+          <div ref={colorRef} className="relative w-24">
+            <button
+              onClick={() => setColorOpen(!colorOpen)}
+              className="flex w-full items-center justify-between bg-[#F3F4F6] px-2 py-1 text-[#8A99AF] cursor-pointer"
             >
-              <option value="yellow">Yellow</option>
-              <option value="black">Black</option>
-              <option value="blue">Blue</option>
-            </select>
+              <div className="flex items-center gap-2">
+                <span
+                  className={`h-3 w-3 rounded-full ${
+                    color === "yellow"
+                      ? "bg-[#F0950C]"
+                      : color === "black"
+                      ? "bg-black"
+                      : "bg-blue-500"
+                  }`}
+                />
+                <span className="capitalize">{color}</span>
+              </div>
 
-            {/* Color Dot */}
-            <span
-              className={`absolute left-2 top-1/2 h-3 w-3 -translate-y-1/2 rounded-full ${
-                color === "yellow"
-                  ? "bg-[#F0950C]"
-                  : color === "black"
-                  ? "bg-black"
-                  : "bg-blue-500"
-              }`}
-            />
+              <ChevronDown
+                size={14}
+                className={`transition-transform ${
+                  colorOpen ? "rotate-180" : ""
+                }`}
+              />
+            </button>
 
-            {/* Chevron */}
-            <ChevronDown
-              size={14}
-              className="absolute right-2 top-1/2 -translate-y-1/2 text-[#8A99AF]"
-            />
+            {colorOpen && (
+              <div className="absolute top-full mt-1 w-full bg-white border border-[#9CA3AF] z-50">
+                {["yellow", "black", "blue"].map((item) => (
+                  <button
+                    key={item}
+                    onClick={() => {
+                      setColor(item);
+                      setColorOpen(false);
+                    }}
+                    className={`flex items-center gap-2 w-full text-left px-2 py-1 text-sm hover:bg-[#EFF4FB] ${
+                      color === item ? "bg-[#03C855] text-white" : ""
+                    }`}
+                  >
+                    <span
+                      className={`h-3 w-3 rounded-full ${
+                        item === "yellow"
+                          ? "bg-[#F0950C]"
+                          : item === "black"
+                          ? "bg-black"
+                          : "bg-blue-500"
+                      }`}
+                    />
+                    <span className="capitalize">{item}</span>
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>
