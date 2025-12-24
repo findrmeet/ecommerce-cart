@@ -161,16 +161,39 @@ export default function CheckoutForm() {
 
           <div className="space-y-3 text-sm mb-6 flex flex-col">
             <label>
-              <input {...register("payment")} type="radio" value="cod" /> Cash
-              on delivery
+              <span className="flex items-center">
+                <input
+                  {...register("payment")}
+                  type="radio"
+                  value="cod"
+                  className="mr-2 custom-radio"
+                />
+                <span>Cash on delivery</span>
+              </span>
             </label>
+
             <label>
-              <input {...register("payment")} type="radio" value="bkash" />{" "}
-              Bkash
+              <span className="flex items-center">
+                <input
+                  {...register("payment")}
+                  type="radio"
+                  value="bkash"
+                  className="mr-2 custom-radio"
+                />
+                <span>Bkash</span>
+              </span>
             </label>
+
             <label>
-              <input {...register("payment")} type="radio" value="card" /> Pay
-              with Card/Mobile Wallet
+              <span className="flex items-center">
+                <input
+                  {...register("payment")}
+                  type="radio"
+                  value="card"
+                  className="mr-2 custom-radio"
+                />
+                <span>Pay with Card/Mobile Wallet</span>
+              </span>
             </label>
           </div>
 
