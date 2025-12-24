@@ -99,6 +99,7 @@ export default function CheckoutForm() {
 
         {/* RIGHT */}
         <div className="flex-1">
+          <p className="mb-4 text-sm text-[#03C855]">Have a coupon code?</p>
           <div className="flex gap-3 mb-5">
             <input
               {...register("coupon")}
@@ -107,7 +108,7 @@ export default function CheckoutForm() {
             />
             <button
               type="button"
-              className="bg-[#0ACB52] text-white px-6 py-2.75 text-sm font-semibold"
+              className="bg-[#0ACB52] text-white px-6 py-2.75 text-sm font-semibold cursor-pointer"
             >
               APPLY
             </button>
@@ -199,7 +200,7 @@ export default function CheckoutForm() {
 
           <button
             type="submit"
-            className="w-full bg-[#0ACB52] text-white py-3 text-sm font-semibold"
+            className="w-full bg-[#0ACB52] text-white py-3 text-sm font-semibold cursor-pointer"
           >
             PLACE ORDER
           </button>
