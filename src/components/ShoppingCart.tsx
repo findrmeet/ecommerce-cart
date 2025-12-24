@@ -11,6 +11,8 @@ type Props = {
 const ShoppingCart = ({ open, onClose }: Props) => {
   if (!open) return null;
 
+  const cartTotal = 12000; // mock value for now
+
   return (
     <div className="fixed inset-0 z-100">
       {/* Backdrop */}
@@ -19,7 +21,7 @@ const ShoppingCart = ({ open, onClose }: Props) => {
       {/* Cart Panel */}
       <div className="absolute right-0 top-0 h-full w-[384px] bg-white shadow-xl flex flex-col text-[#1D2535]">
         {/* Header */}
-        <div className="flex items-center justify-between py-3 px-4 border-b">
+        <div className="flex items-center justify-between py-3 px-4 ">
           <h3 className="text-sm">4 Items</h3>
           <h2 className="uppercase font-medium">Cart</h2>
           <button onClick={onClose} className="cursor-pointer">
@@ -32,6 +34,21 @@ const ShoppingCart = ({ open, onClose }: Props) => {
           <ProductCartItem hasOptions />
           <ProductCartItem />
           <ProductCartItem />
+        </div>
+
+        {/* 🔥 Cart Total Bar — fixed bottom */}
+        <div className=" bg-white px-4 py-3 flex items-center justify-between">
+          <div>
+            <p className="text-[10px] uppercase text-[#94A3B8]">Cart Total</p>
+            <p className="text-[#03C855] font-semibold text-lg">
+              TK {cartTotal.toLocaleString()}
+            </p>
+          </div>
+
+          <button className="flex items-center gap-2 bg-[#03C855] text-white text-sm font-medium px-6 py-2 hover:brightness-95 transition cursor-pointer">
+            Checkout
+            <span className="text-lg">›</span>
+          </button>
         </div>
       </div>
     </div>
