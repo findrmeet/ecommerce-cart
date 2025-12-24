@@ -1,6 +1,7 @@
 "use client";
 
 import { useForm } from "react-hook-form";
+import { ChevronDown } from "lucide-react";
 
 type FormValues = {
   name: string;
@@ -39,12 +40,13 @@ export default function CheckoutForm() {
         </span>
       </div>
 
-      <div className="grid grid-cols-12 gap-10">
-        {/* LEFT SIDE */}
-        <div className="col-span-7">
+      {/* MAIN LAYOUT */}
+      <div className="flex flex-col lg:flex-row gap-10">
+        {/* LEFT */}
+        <div className="flex-1">
           <h2 className="font-semibold text-sm mb-4">BILLING & SHIPPING</h2>
 
-          <div className="grid grid-cols-2 gap-4 mb-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
             <input {...register("name")} placeholder="Name" className="input" />
             <input
               {...register("mobile")}
@@ -53,17 +55,29 @@ export default function CheckoutForm() {
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-4 mb-4">
-            <select {...register("city")} className="input">
-              <option>Select City</option>
-            </select>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+            <div className="relative">
+              <select {...register("city")} className="input appearance-none">
+                <option>Select City</option>
+              </select>
+              <ChevronDown
+                size={16}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
+              />
+            </div>
 
-            <select {...register("area")} className="input">
-              <option>Select Area</option>
-            </select>
+            <div className="relative">
+              <select {...register("area")} className="input appearance-none">
+                <option>Select Area</option>
+              </select>
+              <ChevronDown
+                size={16}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
+              />
+            </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 mb-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
             <input
               {...register("address")}
               placeholder="Address"
@@ -83,9 +97,9 @@ export default function CheckoutForm() {
           />
         </div>
 
-        {/* RIGHT SIDE */}
-        <div className="col-span-5">
-          <div className="flex items-center gap-3 mb-5">
+        {/* RIGHT */}
+        <div className="flex-1">
+          <div className="flex gap-3 mb-5">
             <input
               {...register("coupon")}
               placeholder="Coupon code"
@@ -93,7 +107,7 @@ export default function CheckoutForm() {
             />
             <button
               type="button"
-              className="bg-[#0ACB52] text-white px-6 py-[11px] text-sm font-semibold"
+              className="bg-[#0ACB52] text-white px-6 py-2.75 text-sm font-semibold"
             >
               APPLY
             </button>
@@ -129,13 +143,13 @@ export default function CheckoutForm() {
             </label>
           </div>
 
-          <div className="text-sm space-y-2 border-t pt-4 mb-6">
+          <div className="text-sm space-y-2 border-t pt-4 mb-6 border-[#8A99AF]">
             <div className="flex justify-between">
               <span>Total MRP</span>
               <span>TK 5,648.00</span>
             </div>
 
-            <div className="flex justify-between font-semibold">
+            <div className="flex justify-between font-semibold ">
               <span>Total Amount</span>
               <span className="text-[#0ACB52]">
                 TK {shipping === "inside" ? "5,708.00" : "5,748.00"}
