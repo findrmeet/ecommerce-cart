@@ -27,10 +27,6 @@ export default function CheckoutForm() {
 
   const shipping = watch("shipping");
 
-  const onSubmit = (data: FormValues) => {
-    console.log(data);
-  };
-
   const [cityOpen, setCityOpen] = useState(false);
   const [areaOpen, setAreaOpen] = useState(false);
 
@@ -39,6 +35,30 @@ export default function CheckoutForm() {
 
   const cities = ["Dhaka", "Chittagong", "Sylhet", "Rajshahi"];
   const areas = ["Banani", "Gulshan", "Dhanmondi", "Mirpur"];
+
+  const onSubmit = (data: FormValues) => {
+    console.log(data);
+  };
+
+  // ---------- Event Handlers (no inline functions) ----------
+
+  const toggleCity = () => {
+    setCityOpen((prev) => !prev);
+  };
+
+  const toggleArea = () => {
+    setAreaOpen((prev) => !prev);
+  };
+
+  const selectCity = (city: string) => {
+    setValue("city", city);
+    setCityOpen(false);
+  };
+
+  const selectArea = (area: string) => {
+    setValue("area", area);
+    setAreaOpen(false);
+  };
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -57,8 +77,8 @@ export default function CheckoutForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="max-w-300 mx-auto p-6">
       {/* LOGIN BANNER */}
-      <div className="border border-[#2ecc71] bg-[#f4fff9] px-4 py-2 text-sm mb-8">
-        Returning Customer?{" "}
+      <div className="border border-[#2ecc71] bg-[#f4fff9] px-4 py-2 text-sm mb-8 flex gap-2">
+        <p>Returning Customer?</p>
         <span className="text-[#2ecc71] font-semibold cursor-pointer">
           Click here to login
         </span>
@@ -84,7 +104,7 @@ export default function CheckoutForm() {
             <div ref={cityRef} className="relative">
               <button
                 type="button"
-                onClick={() => setCityOpen(!cityOpen)}
+                onClick={toggleCity}
                 className="input flex items-center justify-between cursor-pointer"
               >
                 <span>{watch("city") || "Select City"}</span>
@@ -102,10 +122,7 @@ export default function CheckoutForm() {
                       key={city}
                       type="button"
                       className="w-full text-left px-4 py-1 cursor-pointer hover:bg-[#EFF4FB]"
-                      onClick={() => {
-                        setValue("city", city);
-                        setCityOpen(false);
-                      }}
+                      onClick={() => selectCity(city)}
                     >
                       {city}
                     </button>
@@ -118,7 +135,7 @@ export default function CheckoutForm() {
             <div ref={areaRef} className="relative">
               <button
                 type="button"
-                onClick={() => setAreaOpen(!areaOpen)}
+                onClick={toggleArea}
                 className="input flex items-center justify-between cursor-pointer"
               >
                 <span>{watch("area") || "Select Area"}</span>
@@ -136,10 +153,7 @@ export default function CheckoutForm() {
                       key={area}
                       type="button"
                       className="w-full text-left px-4 py-1 cursor-pointer hover:bg-[#EFF4FB]"
-                      onClick={() => {
-                        setValue("area", area);
-                        setAreaOpen(false);
-                      }}
+                      onClick={() => selectArea(area)}
                     >
                       {area}
                     </button>
@@ -172,6 +186,7 @@ export default function CheckoutForm() {
         {/* RIGHT */}
         <div className="flex-1">
           <p className="mb-4 text-sm text-[#03C855]">Have a coupon code?</p>
+
           <div className="flex gap-3 mb-5">
             <input
               {...register("coupon")}
@@ -222,7 +237,7 @@ export default function CheckoutForm() {
               <span>TK 5,648.00</span>
             </div>
 
-            <div className="flex justify-between font-semibold ">
+            <div className="flex justify-between font-semibold">
               <span>Total Amount</span>
               <span className="text-[#0ACB52]">
                 TK {shipping === "inside" ? "5,708.00" : "5,748.00"}
