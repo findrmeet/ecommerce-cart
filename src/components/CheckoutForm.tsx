@@ -2,6 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import { ChevronDown } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
 type FormValues = {
   name: string;
@@ -17,7 +18,7 @@ type FormValues = {
 };
 
 export default function CheckoutForm() {
-  const { register, handleSubmit, watch } = useForm<FormValues>({
+  const { register, handleSubmit, watch, setValue } = useForm<FormValues>({
     defaultValues: {
       shipping: "inside",
       payment: "cod",
@@ -29,6 +30,29 @@ export default function CheckoutForm() {
   const onSubmit = (data: FormValues) => {
     console.log(data);
   };
+
+  const [cityOpen, setCityOpen] = useState(false);
+  const [areaOpen, setAreaOpen] = useState(false);
+
+  const cityRef = useRef<HTMLDivElement>(null);
+  const areaRef = useRef<HTMLDivElement>(null);
+
+  const cities = ["Dhaka", "Chittagong", "Sylhet", "Rajshahi"];
+  const areas = ["Banani", "Gulshan", "Dhanmondi", "Mirpur"];
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (cityRef.current && !cityRef.current.contains(e.target as Node)) {
+        setCityOpen(false);
+      }
+      if (areaRef.current && !areaRef.current.contains(e.target as Node)) {
+        setAreaOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="max-w-300 mx-auto p-6">
@@ -56,24 +80,72 @@ export default function CheckoutForm() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-            <div className="relative">
-              <select {...register("city")} className="input appearance-none">
-                <option>Select City</option>
-              </select>
-              <ChevronDown
-                size={16}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
-              />
+            {/* CITY DROPDOWN */}
+            <div ref={cityRef} className="relative">
+              <button
+                type="button"
+                onClick={() => setCityOpen(!cityOpen)}
+                className="input flex items-center justify-between cursor-pointer"
+              >
+                <span>{watch("city") || "Select City"}</span>
+                <ChevronDown
+                  className={`w-4 h-4 transition-transform ${
+                    cityOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+
+              {cityOpen && (
+                <div className="absolute top-full mt-1 w-full bg-white border border-[#9CA3AF] z-50">
+                  {cities.map((city) => (
+                    <button
+                      key={city}
+                      type="button"
+                      className="w-full text-left px-4 py-1 cursor-pointer hover:bg-[#EFF4FB]"
+                      onClick={() => {
+                        setValue("city", city);
+                        setCityOpen(false);
+                      }}
+                    >
+                      {city}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
 
-            <div className="relative">
-              <select {...register("area")} className="input appearance-none">
-                <option>Select Area</option>
-              </select>
-              <ChevronDown
-                size={16}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
-              />
+            {/* AREA DROPDOWN */}
+            <div ref={areaRef} className="relative">
+              <button
+                type="button"
+                onClick={() => setAreaOpen(!areaOpen)}
+                className="input flex items-center justify-between cursor-pointer"
+              >
+                <span>{watch("area") || "Select Area"}</span>
+                <ChevronDown
+                  className={`w-4 h-4 transition-transform ${
+                    areaOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+
+              {areaOpen && (
+                <div className="absolute top-full mt-1 w-full bg-white border border-[#9CA3AF] z-50">
+                  {areas.map((area) => (
+                    <button
+                      key={area}
+                      type="button"
+                      className="w-full text-left px-4 py-1 cursor-pointer hover:bg-[#EFF4FB]"
+                      onClick={() => {
+                        setValue("area", area);
+                        setAreaOpen(false);
+                      }}
+                    >
+                      {area}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
 
