@@ -1,12 +1,9 @@
-import Navbar from "@/components/Navbar";
-import ShoppingCart from "@/components/ShoppingCart";
+import PriceDetailsModal from "@/components/PriceDetailsModal";
 
 export default function Home() {
   return (
-    // <div className="flex flex-row-reverse">
-    //   <ShoppingCart />
-    // </div>
-
-    <Navbar/>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <PriceDetailsModal />
+    </div>
   );
 }
