@@ -11,7 +11,9 @@ const ShoppingCart = () => {
           <X />
         </span>
       </div>
-      <div className=" bg-[#D1D5DB] p-3">
+      <div className=" bg-[#D1D5DB] p-3 space-y-3">
+        <ProductCartItem />
+        <ProductCartItem />
         <ProductCartItem />
       </div>
     </div>

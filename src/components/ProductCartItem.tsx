@@ -35,14 +35,14 @@ export default function ProductCartItem() {
 
           {/* Quantity Control */}
           <div className="mt-2 flex flex-col justify-between items-end gap-2">
-            <button className="text-[#98A2B3] hover:text-[#667085]">
+            <button className="text-[#98A2B3] hover:text-[#EF4444] cursor-pointer">
               <Trash2 size={14} />
             </button>
 
             <div className="flex h-8 items-center">
               <button
                 onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                className="flex h-full w-8 items-center justify-center border border-[#9CA3AF]"
+                className="flex h-full w-8 items-center justify-center border border-[#9CA3AF] cursor-pointer"
               >
                 <Minus size={14} />
               </button>
@@ -53,7 +53,7 @@ export default function ProductCartItem() {
 
               <button
                 onClick={() => setQuantity((q) => q + 1)}
-                className="flex h-full w-8 items-center justify-center text-[#03C855] border border-[#9CA3AF]"
+                className="flex h-full w-8 items-center justify-center text-[#03C855] border border-[#9CA3AF] cursor-pointer"
               >
                 <Plus size={14} />
               </button>
@@ -75,7 +75,7 @@ export default function ProductCartItem() {
             <select
               value={size}
               onChange={(e) => setSize(e.target.value)}
-              className="w-full appearance-none bg-[#F3F4F6] py-1 pl-3 pr-6 text-[#8A99AF]"
+              className="w-full appearance-none bg-[#F3F4F6] py-1 pl-3 pr-6 text-[#8A99AF] cursor-pointer"
             >
               <option>XL</option>
               <option>2XL</option>
@@ -85,7 +85,7 @@ export default function ProductCartItem() {
             {/* Chevron */}
             <ChevronDown
               size={14}
-              className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-[#8A99AF]"
+              className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-[#8A99AF] cursor-pointer"
             />
           </div>
         </div>
