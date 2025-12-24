@@ -29,7 +29,7 @@ const ShoppingCart = ({ open, onClose }: Props) => {
 
         {/* Items */}
         <div className="flex-1 bg-[#D1D5DB] p-3 space-y-3 overflow-y-auto">
-          <ProductCartItem />
+          <ProductCartItem hasOptions />
           <ProductCartItem />
           <ProductCartItem />
         </div>
