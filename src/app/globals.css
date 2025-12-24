@@ -3,5 +3,16 @@
   font-family: "Kanit", sans-serif;
 }
 
-
 @import "tailwindcss";
+
+.input {
+  width: 100%;
+  border: 1px solid #9ca3af;
+  padding: 10px 12px;
+  font-size: 14px;
+  outline: none;
+}
+
+.input:focus {
+  border-color: #0acb52;
+}
