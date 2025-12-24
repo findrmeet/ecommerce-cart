@@ -11,7 +11,7 @@ const ShoppingCart = () => {
           <X />
         </span>
       </div>
-      <div>
+      <div className=" bg-[#D1D5DB] p-3">
         <ProductCartItem />
       </div>
     </div>
