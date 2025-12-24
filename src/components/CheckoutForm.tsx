@@ -117,27 +117,27 @@ export default function CheckoutForm() {
 
           <div className="space-y-3 text-sm mb-5">
             <label className="flex justify-between">
-              <span>
+              <span className="flex items-center">
                 <input
                   {...register("shipping")}
                   type="radio"
                   value="inside"
-                  className="mr-2"
+                  className="mr-2 custom-radio"
                 />
-                Delivery Inside Dhaka
+                <span>Delivery Inside Dhaka</span>
               </span>
               <span>TK 60.00</span>
             </label>
 
             <label className="flex justify-between">
-              <span>
+              <span className="flex items-center">
                 <input
                   {...register("shipping")}
                   type="radio"
                   value="outside"
-                  className="mr-2"
+                  className="mr-2 custom-radio"
                 />
-                Delivery Outside Dhaka
+                <span>Delivery Outside Dhaka</span>
               </span>
               <span>TK 100.00</span>
             </label>

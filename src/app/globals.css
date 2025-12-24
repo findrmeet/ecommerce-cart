@@ -16,3 +16,32 @@
 .input:focus {
   border-color: #0acb52;
 }
+
+.custom-radio {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #9ca3af;
+  border-radius: 9999px;
+  display: grid;
+  place-content: center;
+  cursor: pointer;
+}
+
+.custom-radio::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  background-color: #0acb52;
+}
+
+.custom-radio:checked {
+  border-color: #0acb52;
+}
+
+.custom-radio:checked::before {
+  transform: scale(1);
+}
